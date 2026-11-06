@@ -1,0 +1,183 @@
+{
+  "tools": [
+    {
+      "name": "get_current_date",
+      "description": "Get today's date and weekday. Call this first whenever the user uses relative dates such as 'tomorrow', 'next Friday' or 'in two weeks'.",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "add_task",
+      "description": "Add a study task, assignment or exam-prep item to the planner.",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {
+          "title": {
+            "type": "STRING",
+            "description": "Short name of the task, e.g. 'Heat Transfer assignment 3'."
+          },
+          "subject": {
+            "type": "STRING",
+            "description": "Course or subject the task belongs to."
+          },
+          "due_date": {
+            "type": "STRING",
+            "description": "Deadline in YYYY-MM-DD format."
+          },
+          "est_hours": {
+            "type": "NUMBER",
+            "description": "Estimated total hours of work needed (greater than 0)."
+          },
+          "priority": {
+            "type": "INTEGER",
+            "description": "1 (low), 2 (normal) or 3 (high). Breaks ties between same-deadline tasks."
+          }
+        },
+        "required": [
+          "title",
+          "subject",
+          "due_date",
+          "est_hours"
+        ]
+      }
+    },
+    {
+      "name": "list_tasks",
+      "description": "List tasks in the planner, sorted by deadline.",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {
+          "status": {
+            "type": "STRING",
+            "description": "'all', 'pending' or 'done'."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "log_progress",
+      "description": "Record hours the student has just spent on a task. The task is marked done automatically once its estimate is reached.",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {
+          "task_id": {
+            "type": "INTEGER",
+            "description": "Id of the task (from list_tasks)."
+          },
+          "hours_done": {
+            "type": "NUMBER",
+            "description": "Hours completed in this session (greater than 0)."
+          }
+        },
+        "required": [
+          "task_id",
+          "hours_done"
+        ]
+      }
+    },
+    {
+      "name": "delete_task",
+      "description": "Permanently remove a task from the planner.",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {
+          "task_id": {
+            "type": "INTEGER",
+            "description": "Id of the task to delete."
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "set_daily_hours",
+      "description": "Set how many hours per day the student can study.",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {
+          "hours": {
+            "type": "NUMBER",
+            "description": "Hours per day, between 0.5 and 16."
+          }
+        },
+        "required": [
+          "hours"
+        ]
+      }
+    },
+    {
+      "name": "block_date",
+      "description": "Mark a date as unavailable for studying (travel, festival, event).",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {
+          "date": {
+            "type": "STRING",
+            "description": "Date in YYYY-MM-DD format."
+          },
+          "reason": {
+            "type": "STRING",
+            "description": "Optional reason, e.g. 'family function'."
+          }
+        },
+        "required": [
+          "date"
+        ]
+      }
+    },
+    {
+      "name": "generate_schedule",
+      "description": "Build a day-by-day study schedule for all pending tasks using the planner algorithm, save it, and report tasks at risk of missing their deadline. Call again after any change to tasks, hours or blocked dates.",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {
+          "start_date": {
+            "type": "STRING",
+            "description": "First day, YYYY-MM-DD. Empty string means today."
+          },
+          "days": {
+            "type": "INTEGER",
+            "description": "Number of days to plan, 1 to 60."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_plan_for_day",
+      "description": "Get the saved study plan for one day.",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {
+          "date": {
+            "type": "STRING",
+            "description": "Date in YYYY-MM-DD format. Empty string means today."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "read_text_file",
+      "description": "Read a text file (e.g. a syllabus or deadline list) from the data/inputs folder so tasks can be extracted from it.",
+      "parameters": {
+        "type": "OBJECT",
+        "properties": {
+          "filename": {
+            "type": "STRING",
+            "description": "File name inside data/inputs, e.g. 'syllabus.txt'."
+          }
+        },
+        "required": [
+          "filename"
+        ]
+      }
+    }
+  ]
+}

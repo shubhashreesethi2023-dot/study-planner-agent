@@ -1,0 +1,12 @@
+Semester deadlines (Mechanical Engineering, Semester 7)
+
+Heat Transfer
+- Assignment 3 due 2026-11-09, about 5 hours
+- Mid-term lab report due 2026-11-14, about 6 hours
+
+Machine Design
+- Gear design problem set due 2026-11-12, about 4 hours
+- End-semester exam on 2026-11-28, about 15 hours of revision (high priority)
+
+Finite Element Analysis
+- ANSYS mini-project due 2026-11-20, about 10 hours

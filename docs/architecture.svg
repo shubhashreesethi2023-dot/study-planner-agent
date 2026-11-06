@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="720" fill="#ffffff"/>
+  <text x="550" y="38" text-anchor="middle" font-size="24" font-weight="bold" fill="#0f172a">Study Planner Agent: Architecture</text>
+  <text x="550" y="62" text-anchor="middle" font-size="14" fill="#475569">Think → Act → Observe loop on Gemini function calling</text>
+
+  <!-- User -->
+  <rect x="40" y="130" width="150" height="70" rx="10" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>
+  <text x="115" y="161" text-anchor="middle" font-size="16" font-weight="bold" fill="#0c4a6e">Student</text>
+  <text x="115" y="182" text-anchor="middle" font-size="12" fill="#0c4a6e">goal in plain English</text>
+
+  <!-- CLI -->
+  <rect x="250" y="130" width="190" height="70" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="345" y="161" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">CLI (agent.py)</text>
+  <text x="345" y="182" text-anchor="middle" font-size="12" fill="#334155">chat history + step cap (12)</text>
+
+  <!-- Agent loop box -->
+  <rect x="500" y="100" width="540" height="270" rx="14" fill="#faf5ff" stroke="#7e22ce" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="520" y="126" font-size="14" font-weight="bold" fill="#6b21a8">AGENT LOOP  (run_turn)</text>
+
+  <rect x="530" y="150" width="200" height="90" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="630" y="181" text-anchor="middle" font-size="16" font-weight="bold" fill="#4c1d95">1. THINK</text>
+  <text x="630" y="203" text-anchor="middle" font-size="12" fill="#4c1d95">Gemini LLM + system prompt</text>
+  <text x="630" y="221" text-anchor="middle" font-size="12" fill="#4c1d95">picks next tool or answers</text>
+
+  <rect x="830" y="150" width="190" height="90" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="925" y="181" text-anchor="middle" font-size="16" font-weight="bold" fill="#78350f">2. ACT</text>
+  <text x="925" y="203" text-anchor="middle" font-size="12" fill="#78350f">Toolkit.call(name, args)</text>
+  <text x="925" y="221" text-anchor="middle" font-size="12" fill="#78350f">validates and executes</text>
+
+  <rect x="680" y="285" width="200" height="60" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="780" y="311" text-anchor="middle" font-size="16" font-weight="bold" fill="#14532d">3. OBSERVE</text>
+  <text x="780" y="331" text-anchor="middle" font-size="12" fill="#14532d">result or {"error"} fed back</text>
+
+  <!-- loop arrows -->
+  <line x1="730" y1="195" x2="828" y2="195" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M925,240 L925,315 L882,315" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M680,315 L630,315 L630,242" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- user <-> cli <-> loop -->
+  <line x1="190" y1="165" x2="248" y2="165" stroke="#334155" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr)"/>
+  <line x1="440" y1="165" x2="498" y2="165" stroke="#334155" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr)"/>
+
+  <!-- Tools row -->
+  <text x="40" y="420" font-size="15" font-weight="bold" fill="#0f172a">TOOLS  (tools.py → Toolkit, schema in docs/tools_schema.json)</text>
+  <g font-size="12" fill="#0f172a">
+    <rect x="40" y="435" width="190" height="64" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="1.5"/>
+    <text x="135" y="460" text-anchor="middle" font-weight="bold">Task management</text>
+    <text x="135" y="480" text-anchor="middle" font-size="11">add_task · list_tasks</text>
+    <text x="135" y="494" text-anchor="middle" font-size="11">log_progress · delete_task</text>
+
+    <rect x="250" y="435" width="190" height="64" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="1.5"/>
+    <text x="345" y="460" text-anchor="middle" font-weight="bold">Availability</text>
+    <text x="345" y="480" text-anchor="middle" font-size="11">set_daily_hours</text>
+    <text x="345" y="494" text-anchor="middle" font-size="11">block_date</text>
+
+    <rect x="460" y="435" width="190" height="64" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="1.5"/>
+    <text x="555" y="460" text-anchor="middle" font-weight="bold">Planning</text>
+    <text x="555" y="480" text-anchor="middle" font-size="11">generate_schedule</text>
+    <text x="555" y="494" text-anchor="middle" font-size="11">get_plan_for_day</text>
+
+    <rect x="670" y="435" width="190" height="64" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="1.5"/>
+    <text x="765" y="460" text-anchor="middle" font-weight="bold">Context</text>
+    <text x="765" y="480" text-anchor="middle" font-size="11">get_current_date</text>
+    <text x="765" y="494" text-anchor="middle" font-size="11">read_text_file (data/inputs)</text>
+  </g>
+
+  <!-- connector from ACT to tools -->
+  <path d="M925,240 L925,262 L1070,262 L1070,400 L555,400 L555,433" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+  <text x="1065" y="392" text-anchor="end" font-size="11" fill="#78350f">dispatch</text>
+
+  <!-- Planner + storage -->
+  <rect x="460" y="560" width="190" height="80" rx="10" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/>
+  <text x="555" y="590" text-anchor="middle" font-size="15" font-weight="bold" fill="#312e81">planner.py</text>
+  <text x="555" y="610" text-anchor="middle" font-size="11" fill="#312e81">earliest-deadline-first,</text>
+  <text x="555" y="625" text-anchor="middle" font-size="11" fill="#312e81">interleaved, flags at-risk tasks</text>
+  <text x="555" y="658" text-anchor="middle" font-size="11" fill="#475569">pure function, no I/O</text>
+
+  <rect x="250" y="560" width="190" height="80" rx="10" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/>
+  <text x="345" y="590" text-anchor="middle" font-size="15" font-weight="bold" fill="#312e81">storage.py</text>
+  <text x="345" y="610" text-anchor="middle" font-size="11" fill="#312e81">atomic JSON read / write</text>
+
+  <rect x="40" y="560" width="170" height="80" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="125" y="590" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">data/state.json</text>
+  <text x="125" y="610" text-anchor="middle" font-size="11" fill="#334155">tasks · settings</text>
+  <text x="125" y="625" text-anchor="middle" font-size="11" fill="#334155">blocked dates · schedule</text>
+
+  <line x1="555" y1="499" x2="555" y2="558" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M345,499 L345,558" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M135,499 L135,558" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="250" y1="600" x2="212" y2="600" stroke="#334155" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr)"/>
+
+  <!-- Legend -->
+  <text x="700" y="590" font-size="12" font-weight="bold" fill="#0f172a">Key design points</text>
+  <text x="700" y="612" font-size="12" fill="#334155">• Only tools change state: no claims without a result</text>
+  <text x="700" y="632" font-size="12" fill="#334155">• Bad input returns {"error"}; the agent self-corrects</text>
+  <text x="700" y="652" font-size="12" fill="#334155">• Scheduling is deterministic code, not LLM guesswork</text>
+  <text x="700" y="672" font-size="12" fill="#334155">• Step cap and file sandbox keep the agent safe</text>
+</svg>
